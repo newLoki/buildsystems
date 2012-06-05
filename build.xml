@@ -10,7 +10,7 @@
 
 
     <!-- Main task -->
-    <target name="-db.prepare" depends="-db.check-failed, -db.update">
+    <target name="-db.prepare">
         <updateDatabase
             classpathref="liquibase.classpath"
             driver="${jdbc.driver}"
