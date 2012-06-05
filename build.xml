@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE project SYSTEM "ant.dtd">
 <project name="ipc2012" default="minifyjs" basedir=".">
-    <fileset id="js.files" dir="." description="all unminified js files">
-           <include name="**/*.js"/>
-           <exclude name="**/*.min.js"/>
-           <exclude name="**/jquery-1.*.js"/>
-       </fileset>
-
-       <target name="minifyjs">
-           <apply executable="uglifyjs" parallel="false" failonerror="true"
-                  verbose="true" skipemptyfilesets="true">
-               <arg value="-nc" />
-               <arg value="--unsafe"/>
-               <arg value="--output"/>
-               <targetfile />
-               <srcfile />
-               <fileset refid="js.files"/>
-               <mapper type="glob" from="*.js" to="*.min.js"/>
-           </apply>
-       </target>
+    <!-- Liquibase classpath -->
+    <path id="liquibase.classpath">
+        <path location="build/lib/liquibase.jar"/>
+        <path location="build/lib/mysql-connector-java-5.1.18-bin.jar"/>
+    </path>
+    <taskdef resource="liquibasetasks.properties" classpathref="liquibase.classpath"/>
 </project>
