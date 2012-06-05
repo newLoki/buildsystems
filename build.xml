@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE project SYSTEM "ant.dtd">
-<project name="ipc2012" default="-db.prepare" basedir=".">
+<project name="ipc2012" default="db.update" basedir=".">
     <!-- load config-->
     <property file="build.properties"/>
+    <import file="database.include.xml" description="database funcions"/>
 
-    <!-- Liquibase classpath -->
-    <path id="liquibase.classpath">
-        <path location="lib/liquibase.jar"/>
-        <path location="lib/mysql-connector-java-5.1.18-bin.jar"/>
-    </path>
-    <taskdef resource="liquibasetasks.properties" classpathref="liquibase.classpath"/>
-
-
-    <!-- Main task -->
-    <target name="-db.prepare">
-        <updateDatabase
-            classpathref="liquibase.classpath"
-            driver="${jdbc.driver}"
-            url="${jdbc.url}"
-            promptOnNonLocalDatabase="false"
-            dropFirst="false"
-            username="${db.user.adm}"
-            password="${db.password.adm}"
-            changeLogFile="sql/before.xml"/>
-    </target>
+    <target name="db.update" description="--> Prepares the database for magento update" depends="-db.prepare"/>
 </project>
