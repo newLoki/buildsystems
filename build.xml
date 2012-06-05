@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE project SYSTEM "ant.dtd">
-<project name="ipc2012" default="db.update" basedir=".">
+<project name="ipc2012" default="macro-example" basedir=".">
     <!-- load config-->
     <property file="build.properties"/>
-    <import file="database.include.xml" description="database funcions"/>
 
-    <target name="db.update" description="--> Prepares the database for magento update" depends="-db.prepare"/>
+    <path id="jdbc.classpath">
+        <path location="lib/mysql-connector-java-5.1.18-bin.jar"/>
+    </path>
+
+    <macrodef name="exec-sql-macro">
+        <attribute name="query"/>
+        <sequential>
+            <sql driver="${jdbc.driver}" url="${jdbc.url}"
+                 userid="${db.user.adm}" password="${db.password.adm}"
+                 classpathref="jdbc.classpath">
+                @{query}
+            </sql>
+        </sequential>
+    </macrodef>
+
+    <target name="macro-example" description="Switch to default theme">
+        <exec-sql-macro
+                query="INSERT INTO hello_world (value) VALUES ('Foo');"/>
+    </target>
 </project>
