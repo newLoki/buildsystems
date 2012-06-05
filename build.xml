@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE project SYSTEM "ant.dtd">
 <project name="ipc2012" default="-db.prepare" basedir=".">
+    <!-- load config-->
+    <property file="build.properties"/>
+
     <!-- Liquibase classpath -->
     <path id="liquibase.classpath">
         <path location="lib/liquibase.jar"/>
