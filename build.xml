@@ -12,8 +12,24 @@
     <taskdef resource="liquibasetasks.properties" classpathref="liquibase.classpath"/>
 
 
+    <!-- Checks the required db port is configured -->
+    <target name="-db.check-config">
+        <condition property="liquibase.isConfigured">
+            <and>
+            <isset property="db.port"/>
+                <not>
+                    <equals arg1="${db.port}" arg2=""/>
+                </not>
+            </and>
+        </condition>
+    </target>
+
+    <target name="-db.check-failed" depends="-db.check-config" unless="liquibase.isConfigured">
+        <fail message="liquibase is not properly configured."/>
+    </target>
+
     <!-- Main task -->
-    <target name="-db.prepare">
+    <target name="-db.prepare" depends="-db.check-config, -db.check-failed" if="liquibase.isConfigured">
         <updateDatabase
             classpathref="liquibase.classpath"
             driver="${jdbc.driver}"
