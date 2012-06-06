@@ -1,0 +1,13 @@
+<default_setup>
+    <connection>
+        <host>@dbHost@></host>
+        <username>@dbUser@></username>
+        <password>@dbPassword@></password>
+        <dbname>@dbName@></dbname>
+        <initStatements>SET NAMES utf8></initStatements>
+        <model>mysql4></model>
+        <type>pdo_mysql></type>
+        <pdoType>></pdoType>
+        <active>1</active>
+    </connection>
+</default_setup>
